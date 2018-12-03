@@ -1,0 +1,1 @@
+Dây là trang view;<?php echo $hoten; ?>
