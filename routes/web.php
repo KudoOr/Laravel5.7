@@ -43,3 +43,6 @@ Route::group(['prefix'=>'thuc-don'],function (){
     });
 });
 // end bài 5
+Route::get('goi-view',function(){
+    return view('layout.sub.view');
+});
