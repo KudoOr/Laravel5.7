@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        View::share('title','Lap trinh laravel 5.7');
+        View::share('title_common','Lap trinh laravel 5.7s');
     }
 
     /**

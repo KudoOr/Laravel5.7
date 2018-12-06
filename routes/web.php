@@ -43,6 +43,22 @@ Route::group(['prefix'=>'thuc-don'],function (){
     });
 });
 // end bài 5
-Route::get('goi-view',function(){
+Route::get('admin',function(){
+    return view('layout.sub.admin');
+});
+Route::get('/login',function(){
     return view('layout.sub.view');
+})->name('login');
+View::composer(['layout.sub.view','layout.sub.admin'],function ($view){
+    return $view->with('thongtin','Day là trang ca nhanss');
+});
+Route::get('check-view',function (){
+   if (view()->exists('view')){
+       return 'view có tồn tại';
+   }else{
+       return 'view không tồn tại';
+   }
+});
+Route::get('call-master',function (){
+    return view('views.sub');
 });
