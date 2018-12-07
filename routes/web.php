@@ -62,3 +62,9 @@ Route::get('check-view',function (){
 Route::get('call-master',function (){
     return view('views.sub');
 });
+Route::get('url/full',function (){
+    return URL::full();
+});
+Route::get('url/asset',function (){
+   return  asset('css/style');
+});
