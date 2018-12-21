@@ -6,6 +6,7 @@
 </head>
 <body>
 <div>
+    @include('views.maquee',['run_content'=>"tessss"])
     @section('sidebar')
         é
         <p>Dây là menu chính</p>

@@ -1,4 +1,3 @@
-@include('views.maquee',['run_content'=>"tessss"])
 @extends('views.layout')
 @section('title','Layout sub')
 

@@ -11,6 +11,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('product')->insert(
+            [
+            [
+            'name'=>'Quần bá bong',
+            'price'=>'12548',
+            'cate_id'=>2
+        ],[
+            'name'=>'Quần bá boeng',
+            'price'=>'12547',
+            'cate_id'=>2
+        ]]
+        );
         // $this->call(UsersTableSeeder::class);
     }
 }

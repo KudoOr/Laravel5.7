@@ -68,3 +68,105 @@ Route::get('url/full',function (){
 Route::get('url/asset',function (){
    return  asset('css/style');
 });
+Route::get('schema/create',function (){
+   Schema::create('log_user',function ($table){
+        $table->increments('id');
+        $table->string('username');
+        $table->string('age');
+        $table->text('note')->nullable();
+        $table->timestamps();
+   });
+});
+Route::get('schema/rename',function (){
+   Schema::rename('log_user','log_user_doiten');
+});
+Route::get('schema/drop',function (){
+   Schema::dropIfExists('log_user_doiten');
+});
+Route::get('schema/change_col_attr',function (){
+   Schema::table('log_user',function ($table){
+       $table->string('username',50)->change();
+   });
+});
+Route::get('schema/drop_col',function (){
+   Schema::table('log_user',function ($table){
+       $table->dropColumn(['age','note']);
+   });
+});
+Route::get('schema/create/cate',function (){
+    Schema::create('category_news',function ($table){
+        $table->increments('id');
+        $table->string('name');
+        $table->timestamps();
+    });
+});
+Route::get('schema/create/product',function (){
+    Schema::create('product',function ($table){
+        $table->increments('id');
+        $table->string('name');
+        $table->integer('price');
+        $table->integer('cate_id')->unsigned();
+        $table->foreign('cate_id')->references('id')->on('category');
+        $table->timestamps();
+    });
+});
+Route::get('query/select-all',function (){
+        $data = DB::table('product')->get();
+        echo "<pre>";
+        print_r($data);
+        echo '</pre>';
+});
+Route::get('query/select-col',function (){
+        $data = DB::table('product')->select('name')->where('id',4)->get();
+        echo "<pre>";
+        print_r($data);
+        echo '</pre>';
+});
+Route::get('query/where-or',function (){// lấy giá trị tồn tại 1 trong 2 điều kiện
+        $data = DB::table('product')->where('cate_id',2)->orWhere('price',12345)->get();
+        echo "<pre>";
+        print_r($data);
+        echo '</pre>';
+});
+Route::get('query/where',function (){// Lấy giá trị thỏa mãn đồng thời
+        $data = DB::table('product')->where('cate_id',2)->where('price',12345)->get();
+        echo "<pre>";
+        print_r($data);
+        echo '</pre>';
+});
+Route::get('query/order',function (){// Lấy giá trị thỏa mãn đồng thời
+        $data = DB::table('product')->orderBy('id','DESC')->get();
+        echo "<pre>";
+        print_r($data);
+        echo '</pre>';
+});
+Route::get('query/limit',function (){// Lấy giá trị thỏa mãn đồng thời
+        $data = DB::table('product')->skip(2)->take(2)->get();
+        echo "<pre>";
+        print_r($data);
+        echo '</pre>';
+});
+Route::get('model/select-all',function (){
+    $data = App\Product::all()->toJson();
+    print_r($data);
+    echo "</pre>";
+});
+Route::get('model/find',function (){
+    $data = App\Product::find(111);
+    print_r($data);
+    echo "</pre>";
+});
+Route::get('model/findwhere',function (){
+    $data = App\Product::where('price','>',12222)->take(2)->select('name')->get()->toArray();
+    echo "<pre>";
+    print_r($data);
+    echo "</pre>";
+});
+Route::get('model/insert',function (){
+    $product = new App\Product;
+    $product->name = 'quần béo phì';
+    $product->price = 10000;
+    $product->cate_id = 2;
+    $product->save();
+    echo 'Finish';
+});
